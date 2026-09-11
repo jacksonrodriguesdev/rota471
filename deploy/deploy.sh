@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
-# Deploy incremental no VPS. Rode de dentro da pasta do projeto: bash deploy/deploy.sh
+# Roda NO VPS depois que os arquivos já estão em /var/www/mundocar
+# (via deploy/enviar-para-vps.sh ou um novo envio manual).
+# Uso: cd /var/www/mundocar && bash deploy/deploy.sh
 set -euo pipefail
-
-echo "==> Atualizando código"
-git pull --ff-only
 
 echo "==> Backend: dependências"
 cd api
 npm ci --omit=dev
-# Aplica migrações de schema idempotentes (não apaga nada)
+# Migrações de schema idempotentes (só cria o que falta, nunca apaga dados)
 npm run setup:schema
+npm run setup:especificacoes
 cd ..
 
 echo "==> Frontend: build"

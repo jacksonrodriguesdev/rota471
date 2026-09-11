@@ -10,6 +10,7 @@
     "setup:usuarios": "node setup_usuarios.js",
     "setup:marcas": "node setup_marcas.js",
     "setup:especificacoes": "node setup_especificacoes.js",
+    "export:dump": "node export_dump.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

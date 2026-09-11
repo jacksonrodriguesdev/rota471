@@ -15,6 +15,9 @@ dist/
 api/uploads/*
 !api/uploads/.gitkeep
 
+# Dump de dados do banco (contém dados reais/hashes de senha — nunca versionar)
+api/database/dump_dados.sql
+
 # Backups / artefatos
 api.zip
 *.zip

@@ -1,6 +1,7 @@
 # Deploy — Hostinger VPS (Ubuntu)
 
-Arquitetura no servidor:
+Sem GitHub: o projeto vai do seu PC para o VPS via `scp` (script pronto em
+`deploy/enviar-para-vps.sh`). Arquitetura no servidor:
 
 ```
 Internet → Nginx (:443, SSL)
@@ -14,19 +15,32 @@ Front e API no **mesmo domínio** → sem problema de CORS.
 
 ---
 
-## 0. Pré-requisitos
+## 0. O que você precisa ter em mãos
 
-- VPS Hostinger com Ubuntu 22.04/24.04 (painel hPanel → VPS → sistema operacional).
-- Um domínio apontando para o IP do VPS (registro **A** para `@` e `www` no DNS).
-- Acesso SSH ao VPS (`ssh root@IP_DO_VPS`).
-- Repositório Git do projeto acessível (GitHub/GitLab). **Faça `git init` e suba o projeto primeiro** — o deploy é via `git pull`.
+- **IP do VPS** e a senha (ou chave) de root que a Hostinger mandou por e-mail.
+- Opcional por enquanto: um domínio apontando pra esse IP (dá pra testar só
+  pelo IP antes de configurar DNS).
+
+Teste o acesso SSH primeiro (rode no seu PC, no Git Bash):
+
+```bash
+ssh root@IP_DO_VPS
+```
+
+Se conectar e cair no terminal do VPS, prossiga. Se pedir "yes/no" pra aceitar
+a chave, digite `yes`. Saia com `exit` antes de continuar.
 
 ---
 
-## 1. Preparar o servidor (uma vez)
+## 1. Preparar o servidor (uma vez, dentro do VPS via SSH)
 
 ```bash
-# como root
+ssh root@IP_DO_VPS
+```
+
+A partir daqui os comandos rodam **dentro do VPS**:
+
+```bash
 apt update && apt upgrade -y
 apt install -y nginx git ufw
 
@@ -45,22 +59,27 @@ ufw allow 'Nginx Full'
 ufw enable
 ```
 
-Crie um usuário não-root para a aplicação (recomendado):
+Crie um usuário não-root para a aplicação (recomendado, mas pode pular e usar
+root se preferir simplicidade no começo):
 
 ```bash
 adduser deploy
 usermod -aG sudo deploy
-# opcional: copie sua chave SSH para o novo usuário
-rsync --archive --chown=deploy:deploy ~/.ssh /home/deploy
+rsync --archive --chown=deploy:deploy ~/.ssh /home/deploy 2>/dev/null || true
 ```
 
-Daqui em diante, trabalhe como `deploy` (`su - deploy`).
+Daqui em diante, os comandos assumem que você está como `deploy`
+(`su - deploy`) — se preferir continuar como root, tudo funciona igual, só
+ignore os `sudo`.
+
+Saia do SSH (`exit`) e volte para o terminal do seu PC para o próximo passo.
 
 ---
 
-## 2. Banco de dados
+## 2. Banco de dados (dentro do VPS)
 
 ```bash
+ssh root@IP_DO_VPS    # ou deploy@IP_DO_VPS
 sudo mysql
 ```
 ```sql
@@ -71,28 +90,41 @@ FLUSH PRIVILEGES;
 EXIT;
 ```
 
-> Se você já tem os dados no Laragon, exporte lá com
-> `mysqldump -u root mundocar_db > dump.sql`, envie o arquivo pro VPS
-> (`scp dump.sql deploy@IP:~/`) e importe:
-> `mysql -u mundocar -p mundocar_db < dump.sql`.
-> Caso contrário, o `npm run setup` (passo 4) cria o schema a partir de
-> `api/database/schema.sql`.
+Guarde a senha que você escolheu — vai usá-la no `.env` no passo 5.
 
 ---
 
-## 3. Clonar o projeto
+## 3. Enviar o projeto do seu PC para o VPS
+
+No seu PC (Git Bash, na raiz do projeto — `C:\Users\USER\Desktop\claude\Mundcar\vers-1`):
 
 ```bash
-sudo mkdir -p /var/www/mundocar && sudo chown deploy:deploy /var/www/mundocar
-git clone SEU_REPOSITORIO.git /var/www/mundocar
+node api/export_dump.js
+```
+
+Isso gera `api/database/dump_dados.sql` com os dados reais que você já
+cadastrou (veículos, marcas, galeria, etc). Depois:
+
+```bash
+bash deploy/enviar-para-vps.sh root@IP_DO_VPS
+```
+
+(troque `root` pelo usuário que você vai usar). O script empacota o projeto
+— **incluindo** `api/uploads/` (fotos) e o dump do banco, **sem** o `.env` —
+e envia via `scp`. Ao final ele imprime os comandos para extrair no servidor;
+rode-os (conecta via SSH e roda no VPS):
+
+```bash
+ssh root@IP_DO_VPS
+sudo mkdir -p /var/www/mundocar && sudo chown $USER:$USER /var/www/mundocar
+tar -xzf ~/mundocar-*.tar.gz -C /var/www/mundocar
+rm ~/mundocar-*.tar.gz
 cd /var/www/mundocar
 ```
 
 ---
 
-## 4. Configurar variáveis de ambiente
-
-**Backend** — `api/.env`:
+## 4. Configurar variáveis de ambiente (dentro do VPS)
 
 ```bash
 cp api/.env.production.example api/.env
@@ -100,50 +132,62 @@ nano api/.env
 ```
 Preencha:
 - `DB_USER=mundocar`, `DB_PASSWORD=` (a senha do passo 2), `DB_NAME=mundocar_db`
-- `JWT_SECRET=` → gere: `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"`
+- `JWT_SECRET=` → gere agora mesmo rodando:
+  `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"`
 - `CORS_ORIGINS=https://SEU_DOMINIO.com.br,https://www.SEU_DOMINIO.com.br`
-- `ADMIN_EMAIL` / `ADMIN_SENHA` → suas credenciais iniciais de admin
-
-**Frontend** — `app/.env.production`:
+  (se ainda não tem domínio, pode deixar `http://IP_DO_VPS` por enquanto)
+- `ADMIN_EMAIL` / `ADMIN_SENHA` — só são usados se você optar por recriar o
+  admin do zero; como você vai **importar o dump**, o usuário admin já vem
+  junto (mesma senha que você usa localmente hoje). Pode deixar como está.
 
 ```bash
 cp app/.env.production.example app/.env.production
-nano app/.env.production      # VITE_API_URL=https://SEU_DOMINIO.com.br
+nano app/.env.production      # VITE_API_URL=https://SEU_DOMINIO.com.br (ou http://IP_DO_VPS)
 ```
 
 ---
 
-## 5. Instalar, migrar e buildar
+## 5. Aplicar schema + importar seus dados (dentro do VPS)
 
 ```bash
-# Backend
 cd api
-npm ci --omit=dev
-npm run setup            # cria schema + marcas + usuário admin
-cd ..
-
-# Frontend
-cd app
 npm ci
-npm run build            # gera app/dist
-cd ..
+npm run setup:schema
+npm run setup:especificacoes
 ```
+
+Isso cria todas as tabelas vazias. Agora importe os DADOS que vieram no dump:
+
+```bash
+mysql -u mundocar -p mundocar_db < database/dump_dados.sql
+```
+
+(vai pedir a senha do usuário `mundocar` do passo 2). Pronto — veículos,
+marcas, galeria, catálogo de opcionais e seu usuário admin já estão no ar.
+
+> Não rode `npm run setup:marcas` nem `setup:usuarios` depois de importar o
+> dump — eles são só para banco novo/vazio.
 
 ---
 
-## 6. Subir a API com PM2
+## 6. Build do frontend e subir a API (dentro do VPS)
 
 ```bash
+cd ../app
+npm ci
+npm run build
+cd ..
+
 pm2 start ecosystem.config.cjs
 pm2 save
 pm2 startup              # rode o comando que ele imprimir (com sudo)
-pm2 status               # deve mostrar mundocar-api "online"
+pm2 status                # deve mostrar mundocar-api "online"
 curl http://localhost:3000/     # -> "MundoCar API rodando com sucesso!"
 ```
 
 ---
 
-## 7. Nginx + SSL
+## 7. Nginx + SSL (dentro do VPS)
 
 ```bash
 sudo cp deploy/nginx.conf.example /etc/nginx/sites-available/mundocar
@@ -151,40 +195,61 @@ sudo nano /etc/nginx/sites-available/mundocar     # troque SEU_DOMINIO e o camin
 sudo ln -s /etc/nginx/sites-available/mundocar /etc/nginx/sites-enabled/
 sudo rm -f /etc/nginx/sites-enabled/default
 sudo nginx -t && sudo systemctl reload nginx
+```
 
-# SSL grátis (Let's Encrypt)
+Sem domínio ainda? Edite o `server_name` do arquivo para `_` (catch-all) e
+acesse por `http://IP_DO_VPS`. Quando o domínio estiver apontado:
+
+```bash
 sudo apt install -y certbot python3-certbot-nginx
 sudo certbot --nginx -d SEU_DOMINIO.com.br -d www.SEU_DOMINIO.com.br
 ```
 
-Acesse `https://SEU_DOMINIO.com.br` — vitrine deve carregar.
-`https://SEU_DOMINIO.com.br/login` — entre com `ADMIN_EMAIL` / `ADMIN_SENHA`.
+Acesse `https://SEU_DOMINIO.com.br` (ou `http://IP_DO_VPS`) — a vitrine deve
+carregar com os mesmos veículos e fotos que você tem localmente.
+`/login` — entre com as mesmas credenciais que usa no ambiente local.
 
 ---
 
-## 8. Deploys seguintes
+## 8. Deploys seguintes (quando você mexer no código de novo)
 
+No seu PC:
+```bash
+bash deploy/enviar-para-vps.sh root@IP_DO_VPS
+```
+No VPS (depois de extrair o novo pacote em `/var/www/mundocar`, sobrescrevendo):
 ```bash
 cd /var/www/mundocar
 bash deploy/deploy.sh
 ```
-(faz `git pull`, reinstala, aplica migrações de schema, rebuilda o front e recarrega API + Nginx.)
+(reinstala dependências, aplica migrações de schema pendentes, rebuilda o
+front e reinicia API + Nginx — **não mexe nos dados do banco**.)
+
+Se só mudou conteúdo pelo painel (veículos, galeria, etc.) não precisa fazer
+nada — está direto no banco do VPS.
 
 ---
 
 ## Antes de considerar "no ar de verdade"
 
-- [ ] **Trocar a senha do admin** após o primeiro login (hoje só via `ADMIN_SENHA` + re-seed — ver limitação abaixo).
-- [ ] **Logo**: `Home.jsx`, `DetalhesVeiculo.jsx` e `AdminHeader.jsx` usam URLs temporárias do Google (`lh3.googleusercontent.com/aida-public/...`) para o logotipo, que **vão expirar**. Baixe o logo real para `app/public/logo.png` e troque as referências. (A galeria de entregas e a imagem de fundo do Hero já são gerenciadas pelo painel — `/dashboard/galeria` e `/dashboard/aparencia`.)
-- [ ] **Backup do banco e dos uploads**: `mysqldump` diário via cron + copiar `api/uploads/`.
-      A pasta `api/uploads/` sobrevive aos deploys, mas não é versionada — se o VPS for recriado, some.
-- [ ] **Páginas de Termos de Uso e Política de Privacidade** (rodapé) — hoje são links mortos; a LGPD exige a política, pois o formulário de troca coleta nome e telefone.
+- [ ] **Trocar a senha do admin** se ainda estiver usando a de testes.
+- [ ] **Logo**: `Home.jsx`, `DetalhesVeiculo.jsx` e `AdminHeader.jsx` usam URLs
+      temporárias do Google (`lh3.googleusercontent.com/aida-public/...`) que
+      **vão expirar**. Baixe o logo real para `app/public/logo.png` e troque
+      as referências.
+- [ ] **Backup do banco e dos uploads** no VPS: `mysqldump` diário via cron +
+      copiar `api/uploads/` para outro lugar (Hostinger oferece backups do
+      VPS inteiro no hPanel — vale ativar).
+- [ ] **Páginas de Termos de Uso e Política de Privacidade** (rodapé) — hoje
+      são links mortos; a LGPD exige a política, pois o formulário de troca
+      coleta nome e telefone.
 - [ ] Telefone da loja está fixo no código em ~11 lugares (`5553999262342`).
 
 ## Limitações conhecidas (não bloqueiam o deploy, mas planeje)
 
-- Admin não troca a própria senha pela interface (só re-seed).
-- Veículo não tem status "vendido/reservado" — sai da vitrine só sendo excluído (e a exclusão é permanente, apaga as fotos).
-- Formulário de cadastro não tem campo "descrição/observações" (a coluna existe no banco e aparece na página de detalhes).
-- Sem SSR: links de veículos compartilhados no WhatsApp não mostram preview com foto/preço.
-- Rate-limit é em memória (ok para 1 instância; zera a cada restart).
+- Admin não troca a própria senha pela interface (só reimportando o dump).
+- Veículo não tem status "vendido/reservado" — sai da vitrine só sendo
+  excluído (e a exclusão é permanente, apaga as fotos).
+- Sem SSR: links de veículos compartilhados no WhatsApp não mostram preview
+  com foto/preço.
+- Rate-limit é em memória (ok para 1 instância; zera a cada restart do PM2).
