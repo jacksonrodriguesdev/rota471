@@ -1,0 +1,53 @@
+# /etc/nginx/sites-available/mundocar
+# Depois: ln -s /etc/nginx/sites-available/mundocar /etc/nginx/sites-enabled/
+#         nginx -t && systemctl reload nginx
+#         certbot --nginx -d SEU_DOMINIO.com.br -d www.SEU_DOMINIO.com.br
+#
+# Ajuste:
+#  - SEU_DOMINIO.com.br
+#  - /var/www/mundocar  -> pasta onde o projeto foi clonado
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name SEU_DOMINIO.com.br www.SEU_DOMINIO.com.br;
+
+    # O certbot adiciona o bloco 443 + redirect automaticamente.
+
+    # ---- Frontend (build estático do Vite) ----
+    root /var/www/mundocar/app/dist;
+    index index.html;
+
+    # Limite de upload (fotos de veículos: 8 MB/arquivo, até 15)
+    client_max_body_size 130M;
+
+    # SPA: qualquer rota desconhecida cai no index.html (React Router)
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Cache dos assets com hash no nome
+    location /assets/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # ---- API (Node/Express via PM2 na porta 3000) ----
+    location /api/ {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 120s;
+    }
+
+    # ---- Imagens enviadas (servidas direto pelo Nginx, mais rápido) ----
+    location /uploads/ {
+        alias /var/www/mundocar/api/uploads/;
+        expires 30d;
+        add_header Cache-Control "public";
+        try_files $uri =404;
+    }
+}
