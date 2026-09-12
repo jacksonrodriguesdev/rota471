@@ -1,5 +1,6 @@
 // URL base da API. Definida em app/.env (VITE_API_URL).
-export const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '');
+// Como estamos no mesmo domínio, o fallback é uma string vazia (relativo).
+export const API_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
 
 // Monta a URL absoluta de uma imagem servida pela API (ex.: "/uploads/veiculo-123.jpg").
 export function mediaUrl(caminho) {
