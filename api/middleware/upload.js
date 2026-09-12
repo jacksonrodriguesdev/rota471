@@ -2,7 +2,15 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-const UPLOAD_DIR = path.join(__dirname, '..', 'uploads');
+let UPLOAD_DIR = path.join(__dirname, '..', 'uploads');
+
+// Fix para Hostinger Git Deploy: O Node roda dentro de uma pasta temporária (hbuilds/source/repository).
+// O servidor web (Nginx) só consegue ler arquivos que estão fisicamente na public_html.
+// Além disso, salvar dentro do repositório faria as fotos serem apagadas a cada novo deploy!
+if (__dirname.includes('/hbuilds/source/repository')) {
+  const basePath = __dirname.split('/hbuilds/source/repository')[0];
+  UPLOAD_DIR = path.join(basePath, 'public_html', 'api', 'uploads');
+}
 
 if (!fs.existsSync(UPLOAD_DIR)) {
   fs.mkdirSync(UPLOAD_DIR, { recursive: true });
