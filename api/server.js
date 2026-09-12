@@ -118,10 +118,6 @@ const ORDEM_COLUNAS_ESPEC = [...CAMPOS_TEXTO_ESPEC, 'portas', 'garantia_meses', 
  * Rotas públicas
  * ========================================================== */
 
-app.get('/', (req, res) => {
-  res.send('MundoCar API rodando com sucesso!');
-});
-
 // Listar veículos (vitrine pública)
 app.get('/api/veiculos', async (req, res) => {
   try {
@@ -761,6 +757,18 @@ app.delete('/api/usuarios/:id', authRequired, roleRequired('superadmin'), async 
     console.error(error);
     res.status(500).json({ error: 'Erro ao excluir usuário' });
   }
+});
+
+/* ============================================================
+ * Servir Frontend (Hostinger Node)
+ * ========================================================== */
+
+// Serve os arquivos estáticos do React/Vite
+app.use(express.static(path.join(__dirname, '../app/dist')));
+
+// Qualquer rota que não seja /api/... enviamos o index.html (SPA fallback)
+app.get(/^(?!\/api).*/, (req, res) => {
+  res.sendFile(path.join(__dirname, '../app/dist/index.html'));
 });
 
 /* ============================================================

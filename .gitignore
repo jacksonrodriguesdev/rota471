@@ -33,3 +33,8 @@ npm-debug.log*
 .idea/
 .DS_Store
 Thumbs.db
+
+/deploy_hostinger/
+/test_zip/
+/deploy.zip
+/deploy/api/
