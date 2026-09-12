@@ -47,7 +47,7 @@ app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
 // Servir imagens estaticamente
-app.use('/uploads', express.static(UPLOAD_DIR));
+app.use('/api/uploads', express.static(UPLOAD_DIR));
 
 /* ============================================================
  * Rate limiting
@@ -314,7 +314,7 @@ app.post('/api/veiculos', authRequired, upload.array('imagens', 15), async (req,
 
     if (req.files && req.files.length > 0) {
       for (let i = 0; i < req.files.length; i++) {
-        const filePath = '/uploads/' + req.files[i].filename;
+        const filePath = '/api/uploads/' + req.files[i].filename;
         await db.execute(
           'INSERT INTO veiculo_imagens (veiculo_id, caminho_arquivo, is_capa, ordem) VALUES (?, ?, ?, ?)',
           [veiculoId, filePath, i === 0 ? 1 : 0, i]
@@ -405,7 +405,7 @@ app.put('/api/veiculos/:id', authRequired, upload.array('imagens', 15), async (r
       let ordem = (ordens[0].m || 0) + 1;
 
       for (let i = 0; i < req.files.length; i++) {
-        const filePath = '/uploads/' + req.files[i].filename;
+        const filePath = '/api/uploads/' + req.files[i].filename;
         const isCapa = String(capaNewIndex) === String(i) ? 1 : 0;
         await db.execute(
           'INSERT INTO veiculo_imagens (veiculo_id, caminho_arquivo, is_capa, ordem) VALUES (?, ?, ?, ?)',
