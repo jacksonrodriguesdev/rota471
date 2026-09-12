@@ -7,11 +7,9 @@ export function mediaUrl(caminho) {
   if (!caminho) return '';
   if (caminho.startsWith('http')) return caminho;
   
-  // Na Hostinger, as imagens ficam fisicamente em /api/uploads/
-  // Reescrevemos o caminho antigo para garantir que o Nginx encontre os arquivos estáticos.
-  if (caminho.startsWith('/uploads/')) {
-    caminho = '/api' + caminho;
-  }
+  // Extrai apenas o nome do arquivo final (ex: veiculo-123.jpg)
+  const fileName = caminho.split('/').pop();
   
-  return `${API_URL}${caminho.startsWith('/') ? '' : '/'}${caminho}`;
+  // Usa a nova rota de mídia dinâmica que dribla o Nginx e acessa o armazenamento persistente
+  return `${API_URL}/api/media?file=${fileName}`;
 }

@@ -4,12 +4,15 @@ const fs = require('fs');
 
 let UPLOAD_DIR = path.join(__dirname, '..', 'uploads');
 
-// Fix para Hostinger Git Deploy: O Node roda dentro de uma pasta temporária (hbuilds/source/repository).
-// O servidor web (Nginx) só consegue ler arquivos que estão fisicamente na public_html.
-// Além disso, salvar dentro do repositório faria as fotos serem apagadas a cada novo deploy!
-if (__dirname.includes('/hbuilds/source/repository')) {
-  const basePath = __dirname.split('/hbuilds/source/repository')[0];
-  UPLOAD_DIR = path.join(basePath, 'public_html', 'api', 'uploads');
+// Fix definitivo para Hostinger Git Deploy e Nginx:
+// A Hostinger apaga arquivos não-rastreados na public_html a cada novo deploy.
+// Para evitar perder as fotos, vamos salvá-las uma pasta acima da public_html (segura).
+if (__dirname.includes('public_html')) {
+  const basePath = __dirname.split(/public_html/)[0];
+  UPLOAD_DIR = path.join(basePath, 'uploads_persistentes');
+} else if (__dirname.includes('hbuilds/source/repository')) {
+  const basePath = __dirname.split(/hbuilds\/source\/repository/)[0];
+  UPLOAD_DIR = path.join(basePath, 'uploads_persistentes');
 }
 
 if (!fs.existsSync(UPLOAD_DIR)) {
