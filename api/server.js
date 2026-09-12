@@ -11,7 +11,7 @@ const env = require('./config/env');
 const { getPool } = require('./config/db');
 const { authRequired, roleRequired } = require('./middleware/auth');
 const { upload, UPLOAD_DIR } = require('./middleware/upload');
-const fs = require('fs');
+
 
 const app = express();
 app.disable('x-powered-by');
