@@ -12,7 +12,7 @@ export default function Header() {
 <a className="text-primary-container dark:text-primary-container border-b-2 border-primary-container font-bold pb-1 text-label-btn font-label-btn" href="#inicio">Início</a>
 <a className="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface transition-colors text-label-btn font-label-btn" href="#estoque">Estoque</a>
 <a className="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface transition-colors text-label-btn font-label-btn" href="#financiamento">Financiamento</a>
-<a className="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface transition-colors text-label-btn font-label-btn" href="#venda">Venda seu Carro</a>
+
 <a className="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface transition-colors text-label-btn font-label-btn" href="#sobre">Sobre Nós</a>
 </nav>
 </div>
