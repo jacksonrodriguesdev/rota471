@@ -144,6 +144,8 @@ export default function CadastroVeiculo() {
         isCapa: images.length === 0, // Primeira imagem vira capa
       }));
       setImages((prev) => [...prev, ...newFiles]);
+      // IMPORTANTE: reseta o valor do input para permitir selecionar o mesmo arquivo novamente
+      e.target.value = null;
     }
   };
 
