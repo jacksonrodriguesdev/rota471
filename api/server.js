@@ -425,6 +425,15 @@ app.put('/api/veiculos/:id', authRequired, upload.array('imagens', 15), async (r
       }
     }
 
+    // Garante que o veículo não fique sem capa
+    const [temCapa] = await db.query('SELECT id FROM veiculo_imagens WHERE veiculo_id = ? AND is_capa = 1', [id]);
+    if (temCapa.length === 0) {
+      const [imgs] = await db.query('SELECT id FROM veiculo_imagens WHERE veiculo_id = ? ORDER BY ordem ASC LIMIT 1', [id]);
+      if (imgs.length > 0) {
+        await db.execute('UPDATE veiculo_imagens SET is_capa = 1 WHERE id = ?', [imgs[0].id]);
+      }
+    }
+
     res.json({ message: 'Veículo atualizado com sucesso!' });
   } catch (error) {
     console.error(error);
