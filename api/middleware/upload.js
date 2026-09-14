@@ -3,16 +3,15 @@ const path = require('path');
 const fs = require('fs');
 
 let UPLOAD_DIR = path.join(__dirname, '..', 'uploads');
+const os = require('os');
 
-// Fix definitivo para Hostinger Git Deploy e Nginx:
-// A Hostinger apaga arquivos não-rastreados na public_html a cada novo deploy.
-// Para evitar perder as fotos, vamos salvá-las uma pasta acima da public_html (segura).
-if (__dirname.includes('public_html')) {
-  const basePath = __dirname.split(/public_html/)[0];
-  UPLOAD_DIR = path.join(basePath, 'uploads_persistentes');
-} else if (__dirname.includes('hbuilds/source/repository')) {
-  const basePath = __dirname.split(/hbuilds\/source\/repository/)[0];
-  UPLOAD_DIR = path.join(basePath, 'uploads_persistentes');
+// Fix definitivo para Hostinger Git Deploy:
+// Em servidores Linux (Hostinger), o Git Sync apaga pastas não rastreadas dentro do projeto.
+// Portanto, salvamos as imagens direto na raiz do usuário (/home/usuario/mundocar_uploads),
+// bem longe da pasta do projeto e imune às atualizações do GitHub.
+// No Windows (seu computador local), mantemos dentro de api/uploads para facilitar.
+if (os.platform() === 'linux') {
+  UPLOAD_DIR = path.join(os.homedir(), 'mundocar_uploads_persistentes');
 }
 
 if (!fs.existsSync(UPLOAD_DIR)) {
