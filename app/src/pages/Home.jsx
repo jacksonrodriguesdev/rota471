@@ -150,7 +150,7 @@ function App() {
 <div className="absolute -top-20 right-0 w-96 h-96 bg-primary-container/10 blur-[100px] pointer-events-none rounded-full"></div>
 <div className="max-w-[1320px] mx-auto px-4 sm:px-6 relative z-10">
 {/* Top Badges Row */}
-<div className="flex flex-wrap items-center gap-3 mb-6">
+<div className="hidden sm:flex flex-wrap items-center gap-3 mb-6">
 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-primary-container/20 border border-primary-container text-white text-label-badge font-label-badge uppercase tracking-wider">
 <span className="material-symbols-outlined text-sm text-primary-container" data-icon="verified" >verified</span>
           Laudo Cautelar 100% Aprovado
