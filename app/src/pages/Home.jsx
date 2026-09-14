@@ -9,9 +9,10 @@ function FloatingWhatsApp() {
   const pos = useRef({ x: 0, y: 0, startX: 0, startY: 0 });
   const isDragging = useRef(false);
   const hasDragged = useRef(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const onPointerDown = (e) => {
-    // Apenas botão esquerdo ou touch
+    if (isCollapsed) return;
     if (e.button !== 0 && e.pointerType === 'mouse') return;
     isDragging.current = true;
     hasDragged.current = false;
@@ -21,11 +22,10 @@ function FloatingWhatsApp() {
   };
 
   const onPointerMove = (e) => {
-    if (!isDragging.current) return;
+    if (!isDragging.current || isCollapsed) return;
     const newX = e.clientX - pos.current.startX;
     const newY = e.clientY - pos.current.startY;
     
-    // Tolerância para diferenciar clique de arrasto
     if (Math.abs(newX - pos.current.x) > 3 || Math.abs(newY - pos.current.y) > 3) {
       hasDragged.current = true;
     }
@@ -36,6 +36,7 @@ function FloatingWhatsApp() {
   };
 
   const onPointerUp = (e) => {
+    if (isCollapsed) return;
     isDragging.current = false;
     if (dragRef.current) {
       dragRef.current.releasePointerCapture(e.pointerId);
@@ -48,6 +49,20 @@ function FloatingWhatsApp() {
     }
   };
 
+  const toggleCollapse = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setIsCollapsed(prev => {
+      const next = !prev;
+      if (next && dragRef.current) {
+        // Ao recolher, limpamos o transform manual para que o CSS do Tailwind assuma e jogue ele para a lateral direita
+        dragRef.current.style.transform = '';
+        pos.current = { x: 0, y: 0, startX: 0, startY: 0 };
+      }
+      return next;
+    });
+  };
+
   return (
     <aside 
       ref={dragRef}
@@ -55,21 +70,54 @@ function FloatingWhatsApp() {
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onPointerCancel={onPointerUp}
-      className="fixed bottom-24 right-6 z-50 scale-[0.70] origin-bottom-right md:bottom-24 cursor-grab active:cursor-grabbing touch-none"
+      className={`fixed z-50 scale-[0.70] origin-bottom-right transition-all duration-500 ease-in-out touch-none ${
+        isCollapsed 
+          ? 'bottom-24 right-0 translate-x-[65%] opacity-90' 
+          : 'bottom-24 right-6 cursor-grab active:cursor-grabbing'
+      }`}
     >
-      <a 
-        onClick={handleClick}
-        className="flex items-center gap-3 px-5 py-3 rounded-full bg-primary-container hover:bg-secondary-container text-white shadow-2xl shadow-primary-container/50 border border-primary/30 transition-all duration-300 hover:scale-105 active:scale-95 group select-none" 
-        href="https://wa.me/5553999262342?text=Ol%C3%A1%2C+estou+no+site+e+gostaria+de+atendimento" 
-        target="_blank"
-        draggable="false"
-      >
-        <span className="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform pointer-events-none" data-icon="chat">chat</span>
-        <div className="flex flex-col text-left pointer-events-none">
-          <span className="text-label-badge font-label-badge uppercase tracking-wider text-white/80">Atendimento Online</span>
-          <span className="text-label-btn font-label-btn leading-none">Fale com Consultor</span>
-        </div>
-      </a>
+      <div className="relative flex items-center">
+        {/* Setinha de controle */}
+        <button 
+          onClick={toggleCollapse}
+          className={`absolute z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white text-primary-container shadow-xl border border-outline-variant/30 transition-transform duration-300 hover:scale-110 active:scale-95 ${
+            isCollapsed ? '-left-12 rotate-180 hover:-translate-x-2' : '-left-5 hover:-translate-x-1'
+          }`}
+          title={isCollapsed ? 'Expandir WhatsApp' : 'Ocultar na lateral'}
+        >
+          <span className="material-symbols-outlined font-bold text-[22px]">chevron_right</span>
+        </button>
+
+        {/* Botão principal do WhatsApp */}
+        <a 
+          onClick={handleClick}
+          className={`flex items-center rounded-full bg-primary-container text-white shadow-2xl shadow-primary-container/50 border border-primary/30 transition-all duration-500 group select-none overflow-hidden ${
+            isCollapsed 
+              ? 'w-[72px] h-[72px] justify-center px-0 rounded-r-none' 
+              : 'gap-3 px-5 py-3 hover:bg-secondary-container hover:scale-105 active:scale-95'
+          }`} 
+          href="https://wa.me/5553999262342?text=Ol%C3%A1%2C+estou+no+site+e+gostaria+de+atendimento" 
+          target="_blank"
+          draggable="false"
+        >
+          <span className={`material-symbols-outlined text-[32px] transition-transform ${isCollapsed ? 'pointer-events-none' : 'group-hover:rotate-12 pointer-events-none'}`} data-icon="chat">chat</span>
+          
+          <div className={`flex flex-col text-left pointer-events-none transition-all duration-500 ${
+            isCollapsed ? 'w-0 opacity-0 -ml-3' : 'w-auto opacity-100'
+          }`}>
+            <span className="text-label-badge font-label-badge uppercase tracking-wider text-white/80 whitespace-nowrap">Atendimento Online</span>
+            <span className="text-label-btn font-label-btn leading-none whitespace-nowrap">Fale com Consultor</span>
+          </div>
+        </a>
+
+        {/* Efeito Ping (apenas quando recolhido) */}
+        {isCollapsed && (
+          <span className="absolute top-0 right-1/2 flex h-4 w-4 -translate-y-1/2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-error opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-4 w-4 bg-error border-2 border-surface-container"></span>
+          </span>
+        )}
+      </div>
     </aside>
   );
 }
