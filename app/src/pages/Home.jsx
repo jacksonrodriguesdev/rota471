@@ -296,7 +296,7 @@ function App() {
         </p>
 </div>
 {/* 20-CARD BENTO-ALIGNED RESPONSIVE GRID (4 cols x 5 rows) */}
-<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
             {veiculosOrdenados.length === 0 ? (
               <div className="col-span-full text-center py-16">
                 <span className="material-symbols-outlined text-6xl text-outline mb-4 block">search_off</span>
@@ -307,40 +307,37 @@ function App() {
             ) : (
               veiculosOrdenados.map(veiculo => (
                 <div key={veiculo.id} className="group bg-surface-container-low border border-outline-variant/30 hover:border-primary-container/60 rounded-xl overflow-hidden flex flex-col transition-all duration-300 hover:shadow-2xl hover:shadow-primary-container/15 hover:-translate-y-1">
-                  <div className="relative h-48 overflow-hidden bg-surface-container flex items-center justify-center">
+                  <div className="relative h-32 sm:h-48 overflow-hidden bg-surface-container flex items-center justify-center">
                     {veiculo.capa_imagem ? (
                       <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={veiculo.modelo} src={mediaUrl(veiculo.capa_imagem)} />
                     ) : (
-                      <span className="material-symbols-outlined text-5xl text-outline">directions_car</span>
+                      <span className="material-symbols-outlined text-4xl sm:text-5xl text-outline">directions_car</span>
                     )}
-                    <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5">
-                      <span className="px-2 py-0.5 rounded bg-surface-container-lowest/90 text-white text-label-badge font-label-badge">{veiculo.ano_fabricacao}/{veiculo.ano_modelo}</span>
+                    <div className="absolute top-2 left-2 flex flex-col gap-1.5">
+                      <span className="px-1.5 sm:px-2 py-0.5 rounded bg-surface-container-lowest/90 text-white text-[10px] sm:text-label-badge font-bold">{veiculo.ano_fabricacao}/{veiculo.ano_modelo}</span>
                     </div>
                   </div>
-                  <div className="p-4 flex-1 flex flex-col justify-between">
+                  <div className="p-3 sm:p-4 flex-1 flex flex-col justify-between">
                     <div>
-                      <span className="text-body-sm font-body-sm text-outline uppercase tracking-wider font-semibold">{veiculo.marca}</span>
-                      <h3 className="text-headline-sm font-headline-sm text-white line-clamp-1 group-hover:text-primary transition-colors">{veiculo.modelo} {veiculo.versao}</h3>
-                      <div className="flex items-center gap-1.5 my-3 flex-wrap">
-                        <span className="px-2 py-1 rounded bg-surface-container text-spec-metric font-spec-metric text-on-surface flex items-center gap-1">
-                          <span className="material-symbols-outlined text-xs text-primary-container" data-icon="speed">speed</span> {Number(veiculo.quilometragem).toLocaleString()} km
+                      <span className="text-[10px] sm:text-body-sm font-body-sm text-outline uppercase tracking-wider font-semibold">{veiculo.marca}</span>
+                      <h3 className="text-sm sm:text-headline-sm font-headline-sm text-white line-clamp-1 group-hover:text-primary transition-colors leading-tight mb-2 sm:mb-0">{veiculo.modelo} <span className="text-xs font-normal">{veiculo.versao}</span></h3>
+                      <div className="flex items-center gap-1 sm:gap-1.5 my-2 sm:my-3 flex-wrap">
+                        <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-surface-container text-[10px] sm:text-spec-metric font-spec-metric text-on-surface flex items-center gap-1">
+                          <span className="material-symbols-outlined text-[10px] sm:text-xs text-primary-container" data-icon="speed">speed</span> {Number(veiculo.quilometragem).toLocaleString()} km
                         </span>
-                        <span className="px-2 py-1 rounded bg-surface-container text-spec-metric font-spec-metric text-on-surface flex items-center gap-1">
-                          <span className="material-symbols-outlined text-xs text-primary-container" data-icon="settings">settings</span> {veiculo.cambio}
-                        </span>
-                        <span className="px-2 py-1 rounded bg-surface-container text-spec-metric font-spec-metric text-on-surface flex items-center gap-1">
-                          <span className="material-symbols-outlined text-xs text-primary-container" data-icon="local_gas_station">local_gas_station</span> {veiculo.combustivel}
+                        <span className="hidden sm:flex px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-surface-container text-[10px] sm:text-spec-metric font-spec-metric text-on-surface items-center gap-1">
+                          <span className="material-symbols-outlined text-[10px] sm:text-xs text-primary-container" data-icon="settings">settings</span> {veiculo.cambio}
                         </span>
                       </div>
                     </div>
-                    <div className="pt-3 border-t border-outline-variant/20">
-                      <div className="flex items-baseline justify-between mb-3">
-                        <span className="text-price-card font-price-card text-white">R$ {Number(veiculo.preco).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                    <div className="pt-2 sm:pt-3 border-t border-outline-variant/20 mt-auto">
+                      <div className="flex items-baseline justify-between mb-2 sm:mb-3">
+                        <span className="text-sm sm:text-price-card font-price-card text-white">R$ {Number(veiculo.preco).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
                       </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <Link to={`/veiculo/${veiculo.id}`} className="w-full py-2 rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 text-white text-label-btn font-label-btn text-center transition-colors flex items-center justify-center">Detalhes</Link>
-                        <a className="w-full py-2 rounded-lg bg-primary-container hover:bg-secondary-container text-white text-label-btn font-label-btn flex items-center justify-center gap-1 shadow-md shadow-primary-container/20 transition-all" href={`https://wa.me/5553999262342?text=Interesse ${veiculo.marca} ${veiculo.modelo}`} target="_blank">
-                          <span className="material-symbols-outlined text-sm" data-icon="chat">chat</span> Proposta
+                      <div className="flex flex-col sm:grid sm:grid-cols-2 gap-1.5 sm:gap-2">
+                        <Link to={`/veiculo/${veiculo.id}`} className="w-full py-1.5 sm:py-2 rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 text-white text-[11px] sm:text-label-btn font-label-btn text-center transition-colors flex items-center justify-center">Detalhes</Link>
+                        <a className="w-full py-1.5 sm:py-2 rounded-lg bg-primary-container hover:bg-secondary-container text-white text-[11px] sm:text-label-btn font-label-btn flex items-center justify-center gap-1 shadow-md shadow-primary-container/20 transition-all" href={`https://wa.me/5553999262342?text=Interesse ${veiculo.marca} ${veiculo.modelo}`} target="_blank">
+                          <span className="material-symbols-outlined text-[12px] sm:text-sm" data-icon="chat">chat</span> Proposta
                         </a>
                       </div>
                     </div>

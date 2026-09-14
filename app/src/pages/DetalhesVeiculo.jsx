@@ -454,12 +454,12 @@ export default function DetalhesVeiculo() {
       </div>
     </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-4 custom-scrollbar">
       {relacionados.map(rel => {
         const fotoRel = rel.capa_imagem;
 
         return (
-          <Link to={`/veiculo/${rel.id}`} key={rel.id} className="bg-surface-container-low rounded-xl border border-outline-variant/30 overflow-hidden hover:border-primary-container transition-all group block">
+          <Link to={`/veiculo/${rel.id}`} key={rel.id} className="min-w-[85vw] sm:min-w-[300px] md:min-w-0 snap-center bg-surface-container-low rounded-xl border border-outline-variant/30 overflow-hidden hover:border-primary-container transition-all group shrink-0">
             <div className="relative aspect-[16/10] overflow-hidden bg-surface-container flex items-center justify-center">
               {fotoRel ? (
                 <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src={mediaUrl(fotoRel)} alt={rel.modelo} loading="lazy" />
@@ -470,22 +470,22 @@ export default function DetalhesVeiculo() {
                 {rel.ano_fabricacao} / {Number(rel.quilometragem).toLocaleString()} km
               </span>
             </div>
-            <div className="p-5">
+            <div className="p-4 sm:p-5">
               <span className="text-body-sm text-outline">{rel.marca}</span>
               <h3 className="text-headline-sm font-headline-sm text-on-surface mt-0.5 truncate">{rel.modelo} {rel.versao}</h3>
               <div className="flex items-center gap-3 my-3 text-body-sm text-outline">
-                <span className="flex items-center gap-1"><span className="material-symbols-outlined text-xs">local_gas_station</span> {rel.combustivel}</span>
+                <span className="flex items-center gap-1"><span className="material-symbols-outlined text-[14px]">local_gas_station</span> {rel.combustivel}</span>
                 <span className="text-outline-variant">•</span>
-                <span className="flex items-center gap-1"><span className="material-symbols-outlined text-xs">settings</span> {rel.cambio}</span>
+                <span className="flex items-center gap-1"><span className="material-symbols-outlined text-[14px]">settings</span> {rel.cambio}</span>
               </div>
               <div className="flex items-center justify-between pt-4 border-t border-outline-variant/20">
                 <div>
-                  <span className="text-price-card font-price-card text-on-surface">
+                  <span className="text-[14px] sm:text-price-card font-price-card text-on-surface">
                     {Number(rel.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                   </span>
                 </div>
-                <span className="px-3.5 py-2 bg-primary-container hover:bg-secondary-container text-on-primary-container rounded-lg font-label-btn text-label-btn transition-colors">
-                  Ver Detalhes
+                <span className="px-3.5 py-2 bg-primary-container hover:bg-secondary-container text-on-primary-container rounded-lg font-label-btn text-label-btn transition-colors text-center">
+                  Detalhes
                 </span>
               </div>
             </div>
