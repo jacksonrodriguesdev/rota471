@@ -1,4 +1,5 @@
 import React from 'react';
+import logoJ4 from '../assets/logo-j4business.png';
 
 export default function Footer() {
   return (
@@ -61,11 +62,26 @@ export default function Footer() {
 <p className="text-body-sm font-body-sm text-outline text-center md:text-left">
           © 2024 Mundo Car Veículos. Todos os direitos reservados. Excelência e procedência em seminovos.
         </p>
+<div className="flex flex-col md:flex-row items-center gap-4">
 <div className="flex items-center gap-4 text-label-badge font-label-badge text-outline uppercase tracking-wider">
 <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-500"></span> Showroom Aberto</span>
 <span className="">CNPJ: 00.000.000/0001-00</span>
 </div>
+<div className="flex flex-col items-center gap-1 ml-0 md:ml-4 mt-4 md:mt-0">
+  <span className="text-[10px] text-outline font-semibold uppercase tracking-widest text-center">J4 Acelerando a sua empresa</span>
+  <a href="https://j4business.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 group opacity-80 hover:opacity-100 transition-opacity" style={{ animation: 'slide-x 2.5s ease-in-out infinite' }}>
+    <img src={logoJ4} alt="J4Business" className="h-8 w-auto object-contain" />
+    <span className="material-symbols-outlined text-outline group-hover:text-primary-container text-sm transition-colors">arrow_forward</span>
+  </a>
 </div>
+</div>
+</div>
+<style dangerouslySetInnerHTML={{__html: `
+  @keyframes slide-x {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(4px); }
+  }
+`}} />
 </div>
 </footer>
     </>
