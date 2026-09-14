@@ -459,7 +459,7 @@ export default function DetalhesVeiculo() {
         const fotoRel = rel.capa_imagem;
 
         return (
-          <Link to={`/veiculo/${rel.id}`} key={rel.id} className="min-w-[85vw] sm:min-w-[300px] md:min-w-0 snap-center bg-surface-container-low rounded-xl border border-outline-variant/30 overflow-hidden hover:border-primary-container transition-all group shrink-0">
+          <Link to={`/veiculo/${rel.id}`} key={rel.id} className="min-w-[42vw] sm:min-w-[35%] md:min-w-0 snap-start bg-surface-container-low rounded-xl border border-outline-variant/30 overflow-hidden hover:border-primary-container transition-all group shrink-0">
             <div className="relative aspect-[16/10] overflow-hidden bg-surface-container flex items-center justify-center">
               {fotoRel ? (
                 <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src={mediaUrl(fotoRel)} alt={rel.modelo} loading="lazy" />
