@@ -478,13 +478,13 @@ export default function DetalhesVeiculo() {
                 <span className="text-outline-variant">•</span>
                 <span className="flex items-center gap-1"><span className="material-symbols-outlined text-[14px]">settings</span> {rel.cambio}</span>
               </div>
-              <div className="flex items-center justify-between pt-4 border-t border-outline-variant/20">
+              <div className="flex flex-col gap-3 pt-3 border-t border-outline-variant/20">
                 <div>
-                  <span className="text-[14px] sm:text-price-card font-price-card text-on-surface">
+                  <span className="text-[16px] sm:text-price-card font-price-card text-on-surface">
                     {Number(rel.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                   </span>
                 </div>
-                <span className="px-3.5 py-2 bg-primary-container hover:bg-secondary-container text-on-primary-container rounded-lg font-label-btn text-label-btn transition-colors text-center">
+                <span className="w-full py-2 bg-primary-container hover:bg-secondary-container text-on-primary-container rounded-lg font-label-btn text-[12px] sm:text-label-btn transition-colors text-center">
                   Detalhes
                 </span>
               </div>
