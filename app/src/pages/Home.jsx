@@ -4,6 +4,76 @@ import { api } from '../services/api';
 import { mediaUrl } from '../config';
 import Footer from '../components/Footer';
 
+function FloatingWhatsApp() {
+  const dragRef = useRef(null);
+  const pos = useRef({ x: 0, y: 0, startX: 0, startY: 0 });
+  const isDragging = useRef(false);
+  const hasDragged = useRef(false);
+
+  const onPointerDown = (e) => {
+    // Apenas botão esquerdo ou touch
+    if (e.button !== 0 && e.pointerType === 'mouse') return;
+    isDragging.current = true;
+    hasDragged.current = false;
+    pos.current.startX = e.clientX - pos.current.x;
+    pos.current.startY = e.clientY - pos.current.y;
+    dragRef.current.setPointerCapture(e.pointerId);
+  };
+
+  const onPointerMove = (e) => {
+    if (!isDragging.current) return;
+    const newX = e.clientX - pos.current.startX;
+    const newY = e.clientY - pos.current.startY;
+    
+    // Tolerância para diferenciar clique de arrasto
+    if (Math.abs(newX - pos.current.x) > 3 || Math.abs(newY - pos.current.y) > 3) {
+      hasDragged.current = true;
+    }
+
+    pos.current.x = newX;
+    pos.current.y = newY;
+    dragRef.current.style.transform = `translate(${newX}px, ${newY}px)`;
+  };
+
+  const onPointerUp = (e) => {
+    isDragging.current = false;
+    if (dragRef.current) {
+      dragRef.current.releasePointerCapture(e.pointerId);
+    }
+  };
+
+  const handleClick = (e) => {
+    if (hasDragged.current) {
+      e.preventDefault();
+    }
+  };
+
+  return (
+    <aside 
+      ref={dragRef}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerUp}
+      className="fixed bottom-24 right-6 z-50 scale-[0.70] origin-bottom-right md:bottom-24 cursor-grab active:cursor-grabbing touch-none"
+    >
+      <a 
+        onClick={handleClick}
+        className="flex items-center gap-3 px-5 py-3 rounded-full bg-primary-container hover:bg-secondary-container text-white shadow-2xl shadow-primary-container/50 border border-primary/30 transition-all duration-300 hover:scale-105 active:scale-95 group select-none" 
+        href="https://wa.me/5553999262342?text=Ol%C3%A1%2C+estou+no+site+e+gostaria+de+atendimento" 
+        target="_blank"
+        draggable="false"
+      >
+        <span className="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform pointer-events-none" data-icon="chat">chat</span>
+        <div className="flex flex-col text-left pointer-events-none">
+          <span className="text-label-badge font-label-badge uppercase tracking-wider text-white/80">Atendimento Online</span>
+          <span className="text-label-btn font-label-btn leading-none">Fale com Consultor</span>
+        </div>
+      </a>
+    </aside>
+  );
+}
+
 function App() {
   const [veiculos, setVeiculos] = useState([]);
   const [filtroMarca, setFiltroMarca] = useState('');
@@ -451,15 +521,7 @@ function App() {
 {/* FOOTER */}
 <Footer />
 {/* FLOATING SPEED ACTION (WHATSAPP PILL) */}
-<aside className="fixed bottom-24 right-6 z-50 scale-[0.70] origin-bottom-right md:bottom-24">
-<a className="flex items-center gap-3 px-5 py-3 rounded-full bg-primary-container hover:bg-secondary-container text-white shadow-2xl shadow-primary-container/50 border border-primary/30 transition-all duration-300 hover:scale-105 active:scale-95 group" href="https://wa.me/5553999262342?text=Ol%C3%A1%2C+estou+no+site+e+gostaria+de+atendimento" target="_blank">
-<span className="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform" data-icon="chat">chat</span>
-<div className="flex flex-col text-left">
-<span className="text-label-badge font-label-badge uppercase tracking-wider text-white/80">Atendimento Online</span>
-<span className="text-label-btn font-label-btn leading-none">Fale com Consultor</span>
-</div>
-</a>
-</aside>
+<FloatingWhatsApp />
 
 
 
