@@ -4,9 +4,9 @@ import logoJ4 from '../assets/logo-j4business.png';
 export default function Footer() {
   return (
     <>
-      <footer className="bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant/30 dark:border-outline-variant/30 pt-16 pb-12" id="sobre">
+      <footer className="bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant/30 dark:border-outline-variant/30 pt-8 md:pt-16 pb-6 md:pb-12" id="sobre">
 <div className="w-full px-6 max-w-container-max mx-auto">
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8 mb-8 md:mb-12">
 {/* Brand Summary */}
 <div className="lg:col-span-2">
 <div className="mb-4"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt5LspIkqUFnqQiE6d9B5VA_7KFdijgnOd8YVj6mIvQXDNl9Glrvdz019Z6yG72y0ta0IwOrHjM7qImrWmeHzRmNo3vwE6OIaE2cV3ECaoNK_vvKbhoEQHRXh6yNeA52O8554aNPeiA2BtmUPbYKRDJc5139Xw0F1x71AWsaT97Y4YPv8z4ATfgq6Kj280cNXYXT8PzI1qqM7J9iu-OG4uyO1SYfsjA5bbTgLflIo7DyEA6sqNrqFTslp52BQFkGP5aoA" alt="Mundo Car Veículos" className="h-12 w-auto object-contain" /></div>
@@ -58,7 +58,7 @@ export default function Footer() {
 </div>
 </div>
 {/* Sub Footer / Copyright */}
-<div className="pt-8 border-t border-outline-variant/20 flex flex-col md:flex-row items-center justify-between gap-4">
+<div className="pt-6 md:pt-8 border-t border-outline-variant/20 flex flex-col md:flex-row items-center justify-between gap-4">
 <p className="text-body-sm font-body-sm text-outline text-center md:text-left">
           © 2024 Mundo Car Veículos. Todos os direitos reservados. Excelência e procedência em seminovos.
         </p>

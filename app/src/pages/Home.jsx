@@ -396,7 +396,7 @@ function App() {
 </div>
 </section>
 {/* MAIN SHOWCASE GRID (VITRINE VIRTUAL - EXACTLY 20 VEHICLES) */}
-<main className="py-12 bg-surface-container-lowest" id="estoque">
+<main className="py-8 md:py-12 bg-surface-container-lowest" id="estoque">
 <div className="max-w-[1320px] mx-auto px-4 sm:px-6">
 {/* Section Header */}
 <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
@@ -439,11 +439,14 @@ function App() {
                     <div>
                       <span className="text-[10px] sm:text-body-sm font-body-sm text-outline uppercase tracking-wider font-semibold">{veiculo.marca}</span>
                       <h3 className="text-sm sm:text-headline-sm font-headline-sm text-white line-clamp-1 group-hover:text-primary transition-colors leading-tight mb-2 sm:mb-0">{veiculo.modelo} <span className="text-xs font-normal">{veiculo.versao}</span></h3>
-                      <div className="flex items-center gap-1 sm:gap-1.5 my-2 sm:my-3 flex-wrap">
-                        <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-surface-container text-[10px] sm:text-spec-metric font-spec-metric text-on-surface flex items-center gap-1">
+                      <div className="flex flex-col gap-1 my-2 sm:my-3">
+                        <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-surface-container text-[10px] sm:text-spec-metric font-spec-metric text-on-surface flex items-center gap-1 w-fit">
                           <span className="material-symbols-outlined text-[10px] sm:text-xs text-primary-container" data-icon="speed">speed</span> {Number(veiculo.quilometragem).toLocaleString()} km
                         </span>
-                        <span className="hidden sm:flex px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-surface-container text-[10px] sm:text-spec-metric font-spec-metric text-on-surface items-center gap-1">
+                        <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-surface-container text-[10px] sm:text-spec-metric font-spec-metric text-on-surface flex items-center gap-1 w-fit">
+                          <span className="material-symbols-outlined text-[10px] sm:text-xs text-primary-container" data-icon="local_gas_station">local_gas_station</span> {veiculo.combustivel}
+                        </span>
+                        <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-surface-container text-[10px] sm:text-spec-metric font-spec-metric text-on-surface flex items-center gap-1 w-fit">
                           <span className="material-symbols-outlined text-[10px] sm:text-xs text-primary-container" data-icon="settings">settings</span> {veiculo.cambio}
                         </span>
                       </div>

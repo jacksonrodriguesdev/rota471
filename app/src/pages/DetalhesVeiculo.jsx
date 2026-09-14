@@ -440,8 +440,8 @@ export default function DetalhesVeiculo() {
 
 {/* Related Vehicles Section */}
 {relacionados.length > 0 && (
-  <section className="mb-16">
-    <div className="flex items-center justify-between mb-8">
+  <section className="mb-10 md:mb-16">
+    <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 md:mb-8 gap-3">
       <div>
         <span className="text-label-badge font-label-badge text-primary-container tracking-wider uppercase">Mais Oportunidades</span>
         <h2 className="text-headline-lg font-headline-lg text-on-surface">Veículos Semelhantes em Estoque</h2>
@@ -466,17 +466,23 @@ export default function DetalhesVeiculo() {
               ) : (
                 <span className="material-symbols-outlined text-4xl text-outline">no_photography</span>
               )}
-              <span className="absolute top-3 left-3 px-2.5 py-1 bg-surface-container-lowest/80 backdrop-blur-md text-on-surface text-label-badge font-label-badge rounded-lg">
-                {rel.ano_fabricacao} / {Number(rel.quilometragem).toLocaleString()} km
+              <span className="absolute top-3 left-3 px-2 sm:px-2.5 py-0.5 sm:py-1 bg-surface-container-lowest/80 backdrop-blur-md text-on-surface text-[10px] sm:text-label-badge font-label-badge rounded-lg">
+                {rel.ano_fabricacao}/{rel.ano_modelo || rel.ano_fabricacao}
               </span>
             </div>
             <div className="p-4 sm:p-5">
               <span className="text-body-sm text-outline">{rel.marca}</span>
               <h3 className="text-headline-sm font-headline-sm text-on-surface mt-0.5 truncate">{rel.modelo} {rel.versao}</h3>
-              <div className="flex items-center gap-3 my-3 text-body-sm text-outline">
-                <span className="flex items-center gap-1"><span className="material-symbols-outlined text-[14px]">local_gas_station</span> {rel.combustivel}</span>
-                <span className="text-outline-variant">•</span>
-                <span className="flex items-center gap-1"><span className="material-symbols-outlined text-[14px]">settings</span> {rel.cambio}</span>
+              <div className="flex flex-col gap-1.5 my-2 sm:my-3">
+                <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-surface-container text-[10px] sm:text-spec-metric font-spec-metric text-on-surface flex items-center gap-1 w-fit">
+                  <span className="material-symbols-outlined text-[10px] sm:text-xs text-primary-container" data-icon="speed">speed</span> {Number(rel.quilometragem).toLocaleString()} km
+                </span>
+                <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-surface-container text-[10px] sm:text-spec-metric font-spec-metric text-on-surface flex items-center gap-1 w-fit">
+                  <span className="material-symbols-outlined text-[10px] sm:text-xs text-primary-container" data-icon="local_gas_station">local_gas_station</span> {rel.combustivel}
+                </span>
+                <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-surface-container text-[10px] sm:text-spec-metric font-spec-metric text-on-surface flex items-center gap-1 w-fit">
+                  <span className="material-symbols-outlined text-[10px] sm:text-xs text-primary-container" data-icon="settings">settings</span> {rel.cambio}
+                </span>
               </div>
               <div className="flex flex-col gap-3 pt-3 border-t border-outline-variant/20">
                 <div>
