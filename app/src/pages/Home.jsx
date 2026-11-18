@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { api } from '../services/api';
 import { mediaUrl } from '../config';
 import Footer from '../components/Footer';
+import logoRota471 from '../assets/logo.png';
 
 function FloatingWhatsApp() {
   const dragRef = useRef(null);
@@ -96,7 +97,7 @@ function FloatingWhatsApp() {
               ? 'w-[72px] h-[72px] justify-center px-0 rounded-r-none' 
               : 'gap-3 px-5 py-3 hover:bg-secondary-container hover:scale-105 active:scale-95'
           }`} 
-          href="https://wa.me/5553999262342?text=Ol%C3%A1%2C+estou+no+site+e+gostaria+de+atendimento" 
+          href="https://wa.me/5553999317224?text=Ol%C3%A1%2C+estou+no+site+e+gostaria+de+atendimento" 
           target="_blank"
           draggable="false"
         >
@@ -232,7 +233,7 @@ function App() {
 <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-3 w-full border-b border-outline-variant/20 bg-surface-container-lowest/90 dark:bg-surface-container-lowest/90 backdrop-blur-md shadow-2xl shadow-black/80">
 <div className="flex items-center gap-8">
 {/* Brand Logo */}
-<a className="flex items-center gap-2" href="#"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMuypFnljzMn89KQ5kPYzOyibbATjduEZD9TPHihUKOd9QlUJtL_sUz3uilmfbyEtTrHrjOXr7KZw91DGSMB6ci963BW6-ZuWSA6TB8CFnixEMUplt1fgcvSHLq13pAXQgjKvzqMWkbWiPjJT7VBnt86M7vvwvRAq7Y6lUJi3PNDHb6d5_Sg7hI0DidCw1X8oU432CVzw9P8fW8jHsoidg3e9bfopbb8ekJLKmgiHAepmWakEQEWTeJ3nhQSCslYT5XJ8" alt="Rota471 Veículos" className="h-10 w-auto object-contain" /></a>
+<a className="flex items-center gap-2" href="#"><img src={logoRota471} alt="Rota471 Veículos" className="h-10 w-auto object-contain" /></a>
 {/* Desktop Nav Links */}
 <nav className="hidden lg:flex items-center gap-6">
 <a className="text-primary-container dark:text-primary-container border-b-2 border-primary-container font-bold pb-1 text-label-btn font-label-btn" href="#inicio">Início</a>
@@ -250,7 +251,7 @@ function App() {
 </a>
 
 {/* WhatsApp CTA Button */}
-<a className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container hover:bg-secondary-container text-white font-label-btn text-label-btn shadow-lg shadow-primary-container/30 transition-all duration-200 active:scale-95" href="https://wa.me/5553999262342" target="_blank">
+<a className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container hover:bg-secondary-container text-white font-label-btn text-label-btn shadow-lg shadow-primary-container/30 transition-all duration-200 active:scale-95" href="https://wa.me/5553999317224" target="_blank">
 <span className="material-symbols-outlined text-lg" data-icon="chat">chat</span>
 <span className="">WhatsApp</span>
 </a>
@@ -457,7 +458,7 @@ function App() {
                       </div>
                       <div className="flex flex-col sm:grid sm:grid-cols-2 gap-1.5 sm:gap-2">
                         <Link to={`/veiculo/${veiculo.id}`} className="w-full py-1.5 sm:py-2 rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 text-white text-[11px] sm:text-label-btn font-label-btn text-center transition-colors flex items-center justify-center">Detalhes</Link>
-                        <a className="w-full py-1.5 sm:py-2 rounded-lg bg-primary-container hover:bg-secondary-container text-white text-[11px] sm:text-label-btn font-label-btn flex items-center justify-center gap-1 shadow-md shadow-primary-container/20 transition-all" href={`https://wa.me/5553999262342?text=Interesse ${veiculo.marca} ${veiculo.modelo}`} target="_blank">
+                        <a className="w-full py-1.5 sm:py-2 rounded-lg bg-primary-container hover:bg-secondary-container text-white text-[11px] sm:text-label-btn font-label-btn flex items-center justify-center gap-1 shadow-md shadow-primary-container/20 transition-all" href={`https://wa.me/5553999317224?text=Interesse ${veiculo.marca} ${veiculo.modelo}`} target="_blank">
                           <span className="material-symbols-outlined text-[12px] sm:text-sm" data-icon="chat">chat</span> Proposta
                         </a>
                       </div>

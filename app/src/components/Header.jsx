@@ -1,4 +1,5 @@
 import React from 'react';
+import logoRota471 from '../assets/logo.png';
 
 export default function Header() {
   return (
@@ -6,7 +7,7 @@ export default function Header() {
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-3 w-full border-b border-outline-variant/20 bg-surface-container-lowest/90 dark:bg-surface-container-lowest/90 backdrop-blur-md shadow-2xl shadow-black/80">
 <div className="flex items-center gap-8">
 {/* Brand Logo */}
-<a className="flex items-center gap-2" href="#"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMuypFnljzMn89KQ5kPYzOyibbATjduEZD9TPHihUKOd9QlUJtL_sUz3uilmfbyEtTrHrjOXr7KZw91DGSMB6ci963BW6-ZuWSA6TB8CFnixEMUplt1fgcvSHLq13pAXQgjKvzqMWkbWiPjJT7VBnt86M7vvwvRAq7Y6lUJi3PNDHb6d5_Sg7hI0DidCw1X8oU432CVzw9P8fW8jHsoidg3e9bfopbb8ekJLKmgiHAepmWakEQEWTeJ3nhQSCslYT5XJ8" alt="Rota471 Veículos" className="h-10 w-auto object-contain" /></a>
+<a className="flex items-center gap-2" href="#"><img src={logoRota471} alt="Rota471 Veículos" className="h-10 w-auto object-contain" /></a>
 {/* Desktop Nav Links */}
 <nav className="hidden lg:flex items-center gap-6">
 <a className="text-primary-container dark:text-primary-container border-b-2 border-primary-container font-bold pb-1 text-label-btn font-label-btn" href="#inicio">Início</a>
@@ -25,7 +26,7 @@ export default function Header() {
 </a>
 
 {/* WhatsApp CTA Button */}
-<a className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container hover:bg-secondary-container text-white font-label-btn text-label-btn shadow-lg shadow-primary-container/30 transition-all duration-200 active:scale-95" href="https://wa.me/5553999262342" target="_blank">
+<a className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container hover:bg-secondary-container text-white font-label-btn text-label-btn shadow-lg shadow-primary-container/30 transition-all duration-200 active:scale-95" href="https://wa.me/5553999317224" target="_blank">
 <span className="material-symbols-outlined text-lg" data-icon="chat">chat</span>
 <span className="">WhatsApp</span>
 </a>

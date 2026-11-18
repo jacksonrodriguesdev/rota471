@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import logoRota471 from '../assets/logo.png';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -32,8 +33,8 @@ export default function Login() {
       <div className="w-full max-w-md p-8 sm:p-10 bg-surface-container/80 backdrop-blur-xl border border-outline-variant/30 rounded-3xl shadow-2xl relative z-10 mx-4">
         
         <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-surface-container-high border border-outline-variant/30 shadow-inner mb-4">
-            <span className="material-symbols-outlined text-3xl text-primary-container">admin_panel_settings</span>
+          <div className="flex justify-center mb-5">
+            <img src={logoRota471} alt="Rota471 Veículos" className="h-16 w-auto object-contain drop-shadow-md" />
           </div>
           <h1 className="text-display-sm font-display-sm text-on-surface tracking-tight mb-2">
             Rota471 Admin

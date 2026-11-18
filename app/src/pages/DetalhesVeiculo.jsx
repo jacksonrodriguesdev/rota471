@@ -353,7 +353,7 @@ export default function DetalhesVeiculo() {
 {/* Quick Action Buttons */}
 <div className="flex flex-col gap-3 mb-6">
 {/* Highlighted Red WhatsApp Button */}
-<a className="relative group flex items-center justify-center gap-2.5 w-full py-4 px-6 bg-primary-container hover:bg-secondary-container text-on-primary-container rounded-xl font-label-btn text-label-btn shadow-lg shadow-primary-container/40 active:scale-95 transition-all text-center" href={`https://wa.me/5553999262342?text=${mensagemWhatsapp}`} target="_blank">
+<a className="relative group flex items-center justify-center gap-2.5 w-full py-4 px-6 bg-primary-container hover:bg-secondary-container text-on-primary-container rounded-xl font-label-btn text-label-btn shadow-lg shadow-primary-container/40 active:scale-95 transition-all text-center" href={`https://wa.me/5553999317224?text=${mensagemWhatsapp}`} target="_blank">
 <span className="absolute -top-1 -right-1 flex h-3 w-3">
 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
 <span className="relative inline-flex rounded-full h-3 w-3 bg-secondary"></span>
@@ -361,7 +361,7 @@ export default function DetalhesVeiculo() {
 <span className="material-symbols-outlined text-xl">chat</span>
 <span className="">Falar no WhatsApp com Vendedor</span>
 </a>
-<a className="flex items-center justify-center gap-2 w-full py-3.5 px-6 bg-transparent hover:bg-surface-container-high text-on-surface border border-outline-variant hover:border-primary-container rounded-xl font-label-btn text-label-btn transition-colors text-center" href={`https://wa.me/5553999262342?text=${encodeURIComponent(`Olá! Gostaria de agendar um Test Drive para o veículo ${veiculo.marca} ${veiculo.modelo} ${veiculo.versao || ''}.`)}`} target="_blank">
+<a className="flex items-center justify-center gap-2 w-full py-3.5 px-6 bg-transparent hover:bg-surface-container-high text-on-surface border border-outline-variant hover:border-primary-container rounded-xl font-label-btn text-label-btn transition-colors text-center" href={`https://wa.me/5553999317224?text=${encodeURIComponent(`Olá! Gostaria de agendar um Test Drive para o veículo ${veiculo.marca} ${veiculo.modelo} ${veiculo.versao || ''}.`)}`} target="_blank">
 <span className="material-symbols-outlined text-xl">directions_car</span>
 <span className="">Agendar Test Drive</span>
 </a>
@@ -382,7 +382,7 @@ export default function DetalhesVeiculo() {
   const km = form[2].value;
   const tel = form[3].value;
   const text = encodeURIComponent(`Olá! Tenho interesse no ${veiculo.marca} ${veiculo.modelo} e gostaria de dar meu carro na troca.\n\nMeu Carro:\nModelo: ${carroAtual}\nAno: ${ano}\nKM: ${km}\nTelefone: ${tel}`);
-  window.open(`https://wa.me/5553999262342?text=${text}`, '_blank');
+  window.open(`https://wa.me/5553999317224?text=${text}`, '_blank');
 }}>
 <input className="w-full bg-surface-container-low border border-outline-variant/30 rounded-lg px-3 py-2 text-body-sm text-on-surface placeholder:text-outline focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none" placeholder="Marca / Modelo do seu carro atual" required type="text"/>
 <div className="grid grid-cols-2 gap-2">
@@ -402,7 +402,7 @@ export default function DetalhesVeiculo() {
 <div className="text-body-sm">
 <span className="text-on-surface font-medium block">Showroom Rota471 Veículos</span>
 <span className="text-outline block">Av. Justino Amonte Anacker, 1102 - Brasiliano, Santa Vitória do Palmar - RS, 96230-000</span>
-<span className="text-outline font-semibold mt-1 block">Contato: (53) 99926-2342</span>
+<span className="text-outline font-semibold mt-1 block">Contato: (53) 99931-7224</span>
 </div>
 </div>
 </div>
