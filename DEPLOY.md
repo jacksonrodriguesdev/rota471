@@ -83,9 +83,9 @@ ssh root@IP_DO_VPS    # ou deploy@IP_DO_VPS
 sudo mysql
 ```
 ```sql
-CREATE DATABASE mundocar_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER 'mundocar'@'localhost' IDENTIFIED BY 'SENHA_FORTE_AQUI';
-GRANT ALL PRIVILEGES ON mundocar_db.* TO 'mundocar'@'localhost';
+CREATE DATABASE rota471_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'rota471'@'localhost' IDENTIFIED BY 'SENHA_FORTE_AQUI';
+GRANT ALL PRIVILEGES ON rota471_db.* TO 'rota471'@'localhost';
 FLUSH PRIVILEGES;
 EXIT;
 ```
@@ -116,10 +116,10 @@ rode-os (conecta via SSH e roda no VPS):
 
 ```bash
 ssh root@IP_DO_VPS
-sudo mkdir -p /var/www/mundocar && sudo chown $USER:$USER /var/www/mundocar
-tar -xzf ~/mundocar-*.tar.gz -C /var/www/mundocar
-rm ~/mundocar-*.tar.gz
-cd /var/www/mundocar
+sudo mkdir -p /var/www/rota471 && sudo chown $USER:$USER /var/www/rota471
+tar -xzf ~/rota471-*.tar.gz -C /var/www/rota471
+rm ~/rota471-*.tar.gz
+cd /var/www/rota471
 ```
 
 ---
@@ -131,7 +131,7 @@ cp api/.env.production.example api/.env
 nano api/.env
 ```
 Preencha:
-- `DB_USER=mundocar`, `DB_PASSWORD=` (a senha do passo 2), `DB_NAME=mundocar_db`
+- `DB_USER=rota471`, `DB_PASSWORD=` (a senha do passo 2), `DB_NAME=rota471_db`
 - `JWT_SECRET=` → gere agora mesmo rodando:
   `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"`
 - `CORS_ORIGINS=https://SEU_DOMINIO.com.br,https://www.SEU_DOMINIO.com.br`
@@ -159,10 +159,10 @@ npm run setup:especificacoes
 Isso cria todas as tabelas vazias. Agora importe os DADOS que vieram no dump:
 
 ```bash
-mysql -u mundocar -p mundocar_db < database/dump_dados.sql
+mysql -u rota471 -p rota471_db < database/dump_dados.sql
 ```
 
-(vai pedir a senha do usuário `mundocar` do passo 2). Pronto — veículos,
+(vai pedir a senha do usuário `rota471` do passo 2). Pronto — veículos,
 marcas, galeria, catálogo de opcionais e seu usuário admin já estão no ar.
 
 > Não rode `npm run setup:marcas` nem `setup:usuarios` depois de importar o
@@ -181,8 +181,8 @@ cd ..
 pm2 start ecosystem.config.cjs
 pm2 save
 pm2 startup              # rode o comando que ele imprimir (com sudo)
-pm2 status                # deve mostrar mundocar-api "online"
-curl http://localhost:3000/     # -> "MundoCar API rodando com sucesso!"
+pm2 status                # deve mostrar rota471-api "online"
+curl http://localhost:3000/     # -> "Rota471 API rodando com sucesso!"
 ```
 
 ---
@@ -190,9 +190,9 @@ curl http://localhost:3000/     # -> "MundoCar API rodando com sucesso!"
 ## 7. Nginx + SSL (dentro do VPS)
 
 ```bash
-sudo cp deploy/nginx.conf.example /etc/nginx/sites-available/mundocar
-sudo nano /etc/nginx/sites-available/mundocar     # troque SEU_DOMINIO e o caminho
-sudo ln -s /etc/nginx/sites-available/mundocar /etc/nginx/sites-enabled/
+sudo cp deploy/nginx.conf.example /etc/nginx/sites-available/rota471
+sudo nano /etc/nginx/sites-available/rota471     # troque SEU_DOMINIO e o caminho
+sudo ln -s /etc/nginx/sites-available/rota471 /etc/nginx/sites-enabled/
 sudo rm -f /etc/nginx/sites-enabled/default
 sudo nginx -t && sudo systemctl reload nginx
 ```
@@ -217,9 +217,9 @@ No seu PC:
 ```bash
 bash deploy/enviar-para-vps.sh root@IP_DO_VPS
 ```
-No VPS (depois de extrair o novo pacote em `/var/www/mundocar`, sobrescrevendo):
+No VPS (depois de extrair o novo pacote em `/var/www/rota471`, sobrescrevendo):
 ```bash
-cd /var/www/mundocar
+cd /var/www/rota471
 bash deploy/deploy.sh
 ```
 (reinstala dependências, aplica migrações de schema pendentes, rebuilda o

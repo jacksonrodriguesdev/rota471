@@ -1,4 +1,4 @@
-﻿-- ============================================================
+-- ============================================================
 -- MundoCar — Schema do banco de dados
 -- Gerado a partir do banco `mundocar_db` (Laragon), já criado e testado.
 -- Recriar em um servidor novo:
