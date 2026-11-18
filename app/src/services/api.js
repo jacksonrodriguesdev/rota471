@@ -1,7 +1,7 @@
 import { API_URL } from '../config';
 
-export const TOKEN_KEY = '@Mundcar:token';
-export const USER_KEY = '@Mundcar:user';
+export const TOKEN_KEY = '@Rota471:token';
+export const USER_KEY = '@Rota471:user';
 
 export class ApiError extends Error {
   constructor(message, status) {
@@ -49,7 +49,7 @@ export function getStoredUser() {
 /**
  * Requisição central para a API.
  * - Injeta o header Authorization quando há token.
- * - Em 401, limpa a sessão e emite o evento "mundcar:unauthorized".
+ * - Em 401, limpa a sessão e emite o evento "rota471:unauthorized".
  * - Lança ApiError com a mensagem vinda do backend quando a resposta não é ok.
  */
 async function request(path, { method = 'GET', body, headers = {}, auth = true, isForm = false } = {}) {
@@ -79,7 +79,7 @@ async function request(path, { method = 'GET', body, headers = {}, auth = true, 
   if (res.status === 401) {
     clearSession();
     if (typeof window !== 'undefined') {
-      window.dispatchEvent(new Event('mundcar:unauthorized'));
+      window.dispatchEvent(new Event('rota471:unauthorized'));
     }
   }
 

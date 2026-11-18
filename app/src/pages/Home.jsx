@@ -232,7 +232,7 @@ function App() {
 <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-3 w-full border-b border-outline-variant/20 bg-surface-container-lowest/90 dark:bg-surface-container-lowest/90 backdrop-blur-md shadow-2xl shadow-black/80">
 <div className="flex items-center gap-8">
 {/* Brand Logo */}
-<a className="flex items-center gap-2" href="#"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMuypFnljzMn89KQ5kPYzOyibbATjduEZD9TPHihUKOd9QlUJtL_sUz3uilmfbyEtTrHrjOXr7KZw91DGSMB6ci963BW6-ZuWSA6TB8CFnixEMUplt1fgcvSHLq13pAXQgjKvzqMWkbWiPjJT7VBnt86M7vvwvRAq7Y6lUJi3PNDHb6d5_Sg7hI0DidCw1X8oU432CVzw9P8fW8jHsoidg3e9bfopbb8ekJLKmgiHAepmWakEQEWTeJ3nhQSCslYT5XJ8" alt="Mundo Car Veículos" className="h-10 w-auto object-contain" /></a>
+<a className="flex items-center gap-2" href="#"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMuypFnljzMn89KQ5kPYzOyibbATjduEZD9TPHihUKOd9QlUJtL_sUz3uilmfbyEtTrHrjOXr7KZw91DGSMB6ci963BW6-ZuWSA6TB8CFnixEMUplt1fgcvSHLq13pAXQgjKvzqMWkbWiPjJT7VBnt86M7vvwvRAq7Y6lUJi3PNDHb6d5_Sg7hI0DidCw1X8oU432CVzw9P8fW8jHsoidg3e9bfopbb8ekJLKmgiHAepmWakEQEWTeJ3nhQSCslYT5XJ8" alt="Rota471 Veículos" className="h-10 w-auto object-contain" /></a>
 {/* Desktop Nav Links */}
 <nav className="hidden lg:flex items-center gap-6">
 <a className="text-primary-container dark:text-primary-container border-b-2 border-primary-container font-bold pb-1 text-label-btn font-label-btn" href="#inicio">Início</a>
@@ -244,9 +244,9 @@ function App() {
 {/* Actions */}
 <div className="flex items-center gap-3">
 {/* Instagram Handle Shortcut */}
-<a className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface text-label-btn font-label-btn transition-colors border border-outline-variant/30" href="https://instagram.com/mund0_car_veiculos" target="_blank">
+<a className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface text-label-btn font-label-btn transition-colors border border-outline-variant/30" href="https://instagram.com/rota471" target="_blank">
 <span className="material-symbols-outlined text-primary-container text-lg" data-icon="photo_camera">photo_camera</span>
-<span className="text-body-sm font-body-sm text-on-surface">@mund0_car_veiculos</span>
+<span className="text-body-sm font-body-sm text-on-surface">@rota471</span>
 </a>
 
 {/* WhatsApp CTA Button */}
@@ -517,10 +517,10 @@ function App() {
             Transparência em Cada Entrega
           </div>
 <h2 className="text-headline-lg-mobile md:text-headline-lg font-headline-lg text-white">
-            Siga nosso Instagram <a className="text-primary-container hover:underline" href="https://instagram.com/mund0_car_veiculos" target="_blank">@mund0_car_veiculos</a>
+            Siga nosso Instagram <a className="text-primary-container hover:underline" href="https://instagram.com/rota471" target="_blank">@rota471</a>
 </h2>
 </div>
-<a className="px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 text-white font-label-btn text-label-btn flex items-center gap-2" href="https://instagram.com/mund0_car_veiculos" target="_blank">
+<a className="px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 text-white font-label-btn text-label-btn flex items-center gap-2" href="https://instagram.com/rota471" target="_blank">
 <span className="">Ver Perfil Oficial</span>
 <span className="material-symbols-outlined text-sm" data-icon="arrow_outward">arrow_outward</span>
 </a>
@@ -555,7 +555,7 @@ function App() {
 >
 {galeria.map(foto => (
   <div key={foto.id} className="group relative rounded-xl overflow-hidden bg-surface-container border border-outline-variant/30 aspect-square snap-start shrink-0 w-[78%] sm:w-[46%] md:w-[31.5%] lg:w-[23.5%]">
-    <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={mediaUrl(foto.caminho_arquivo)} alt={foto.titulo || 'Entrega Mundo Car'} loading="lazy" />
+    <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={mediaUrl(foto.caminho_arquivo)} alt={foto.titulo || 'Entrega Rota471'} loading="lazy" />
     {(foto.titulo || foto.legenda) && (
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent p-3 flex flex-col justify-end">
         {foto.titulo && <p className="text-body-sm font-body-sm text-white font-medium">{foto.titulo}</p>}

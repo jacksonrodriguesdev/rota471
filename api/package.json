@@ -16,7 +16,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "Backend da vitrine virtual MundoCar",
+  "description": "Backend da vitrine virtual Rota471",
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",

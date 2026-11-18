@@ -15,7 +15,7 @@ export default function AdminHeader() {
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-3 w-full border-b border-outline-variant/20 bg-surface-container-lowest/90 backdrop-blur-md shadow-2xl shadow-black/80">
         <div className="flex items-center gap-6">
           <a className="flex items-center gap-3" href="#">
-            <img alt="Mundo Car Veículos" className="h-9 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaoObDQ9_chIPvnbvqeScvKOmEsFl6hinh2CJUpdJEFLh6eFmHoO66CZlL1E4KWMvkNtCjDLozk-bnrq8fZD6YAPRyFp7XFc7yYJEndMCmgfFB5tiRcU4akJ4sIVx1EbpKeTrrhliZSyJlCd7bQHodalRE8XzBgnofCipPXZBxa6sQG9Hh43cmrVoV5KrmBATYPqeIQtMUI7qqu33e3Iz7-QZHkGmX5VdcA1jfaCQc-JCtZL7K4j10oa6LaxAZizZAck8" />
+            <img alt="Rota471 Veículos" className="h-9 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaoObDQ9_chIPvnbvqeScvKOmEsFl6hinh2CJUpdJEFLh6eFmHoO66CZlL1E4KWMvkNtCjDLozk-bnrq8fZD6YAPRyFp7XFc7yYJEndMCmgfFB5tiRcU4akJ4sIVx1EbpKeTrrhliZSyJlCd7bQHodalRE8XzBgnofCipPXZBxa6sQG9Hh43cmrVoV5KrmBATYPqeIQtMUI7qqu33e3Iz7-QZHkGmX5VdcA1jfaCQc-JCtZL7K4j10oa6LaxAZizZAck8" />
           </a>
         </div>
         

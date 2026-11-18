@@ -36,7 +36,7 @@ export default function Login() {
             <span className="material-symbols-outlined text-3xl text-primary-container">admin_panel_settings</span>
           </div>
           <h1 className="text-display-sm font-display-sm text-on-surface tracking-tight mb-2">
-            Mundcar Admin
+            Rota471 Admin
           </h1>
           <p className="text-body-md font-body-md text-tertiary">
             Entre com suas credenciais para acessar o painel de gestão.

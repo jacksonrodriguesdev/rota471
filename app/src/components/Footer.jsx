@@ -9,18 +9,18 @@ export default function Footer() {
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8 mb-8 md:mb-12">
 {/* Brand Summary */}
 <div className="lg:col-span-2">
-<div className="mb-4"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt5LspIkqUFnqQiE6d9B5VA_7KFdijgnOd8YVj6mIvQXDNl9Glrvdz019Z6yG72y0ta0IwOrHjM7qImrWmeHzRmNo3vwE6OIaE2cV3ECaoNK_vvKbhoEQHRXh6yNeA52O8554aNPeiA2BtmUPbYKRDJc5139Xw0F1x71AWsaT97Y4YPv8z4ATfgq6Kj280cNXYXT8PzI1qqM7J9iu-OG4uyO1SYfsjA5bbTgLflIo7DyEA6sqNrqFTslp52BQFkGP5aoA" alt="Mundo Car Veículos" className="h-12 w-auto object-contain" /></div>
+<div className="mb-4"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt5LspIkqUFnqQiE6d9B5VA_7KFdijgnOd8YVj6mIvQXDNl9Glrvdz019Z6yG72y0ta0IwOrHjM7qImrWmeHzRmNo3vwE6OIaE2cV3ECaoNK_vvKbhoEQHRXh6yNeA52O8554aNPeiA2BtmUPbYKRDJc5139Xw0F1x71AWsaT97Y4YPv8z4ATfgq6Kj280cNXYXT8PzI1qqM7J9iu-OG4uyO1SYfsjA5bbTgLflIo7DyEA6sqNrqFTslp52BQFkGP5aoA" alt="Rota471 Veículos" className="h-12 w-auto object-contain" /></div>
 <p className="text-body-sm font-body-sm text-on-surface-variant max-w-sm mb-6">
             Especialistas em seminovos periciados e veículos selecionados com total transparência mecânica, documentação blindada e atendimento ágil.
           </p>
 <div className="flex items-center gap-3">
-<a className="w-9 h-9 rounded-lg bg-surface-container hover:bg-primary-container text-white flex items-center justify-center transition-colors" href="https://instagram.com/mund0_car_veiculos" target="_blank">
+<a className="w-9 h-9 rounded-lg bg-surface-container hover:bg-primary-container text-white flex items-center justify-center transition-colors" href="https://instagram.com/rota471" target="_blank">
 <span className="material-symbols-outlined text-sm" data-icon="photo_camera">photo_camera</span>
 </a>
 <a className="w-9 h-9 rounded-lg bg-surface-container hover:bg-primary-container text-white flex items-center justify-center transition-colors" href="https://wa.me/5553999262342" target="_blank">
 <span className="material-symbols-outlined text-sm" data-icon="chat">chat</span>
 </a>
-<a className="w-9 h-9 rounded-lg bg-surface-container hover:bg-primary-container text-white flex items-center justify-center transition-colors" href="mailto:contato@mundocarveiculos.com.br">
+<a className="w-9 h-9 rounded-lg bg-surface-container hover:bg-primary-container text-white flex items-center justify-center transition-colors" href="mailto:contato@rota471.com.br">
 <span className="material-symbols-outlined text-sm" data-icon="mail">mail</span>
 </a>
 </div>
@@ -60,7 +60,7 @@ export default function Footer() {
 {/* Sub Footer / Copyright */}
 <div className="pt-6 md:pt-8 border-t border-outline-variant/20 flex flex-col md:flex-row items-center justify-between gap-4">
 <p className="text-body-sm font-body-sm text-outline text-center md:text-left">
-          © 2024 Mundo Car Veículos. Todos os direitos reservados. Excelência e procedência em seminovos.
+          © 2024 Rota471 Veículos. Todos os direitos reservados. Excelência e procedência em seminovos.
         </p>
 <div className="flex flex-col md:flex-row items-center gap-4">
 <div className="flex items-center gap-4 text-label-badge font-label-badge text-outline uppercase tracking-wider">

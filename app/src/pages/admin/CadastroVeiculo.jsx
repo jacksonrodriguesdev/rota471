@@ -399,7 +399,7 @@ export default function CadastroVeiculo() {
               <select name="garantia_tipo" value={formData.garantia_tipo} onChange={handleInputChange} className="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 text-on-surface">
                 <option value="">Selecione...</option>
                 <option>Garantia de Fábrica</option>
-                <option>Garantia Mundo Car</option>
+                <option>Garantia Rota471</option>
                 <option>Garantia Estendida</option>
                 <option>Sem Garantia</option>
               </select>

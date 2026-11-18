@@ -84,10 +84,10 @@ export default function DetalhesVeiculo() {
 
   const compartilhar = useCallback(async () => {
     const url = window.location.href;
-    const titulo = veiculo ? `${veiculo.marca} ${veiculo.modelo} ${veiculo.versao || ''}`.trim() : 'Veículo Mundo Car';
+    const titulo = veiculo ? `${veiculo.marca} ${veiculo.modelo} ${veiculo.versao || ''}`.trim() : 'Veículo Rota471';
     try {
       if (navigator.share) {
-        await navigator.share({ title: titulo, text: `Confira este veículo na Mundo Car: ${titulo}`, url });
+        await navigator.share({ title: titulo, text: `Confira este veículo na Rota471: ${titulo}`, url });
         return;
       }
       await navigator.clipboard.writeText(url);
@@ -172,10 +172,10 @@ export default function DetalhesVeiculo() {
 {veiculo.garantia_tipo && veiculo.garantia_tipo !== 'Sem Garantia' ? (
   <span className="flex items-center gap-1 px-2.5 py-1 bg-surface-container text-outline text-label-badge font-label-badge rounded-lg">
     <span className="material-symbols-outlined text-xs text-primary-container">shield</span>
-    {veiculo.garantia_tipo}{veiculo.garantia_meses ? ` · ${veiculo.garantia_meses} meses` : ''}
+    {veiculo.garantia_tipo.replace(/Mundo\s*Car/gi, 'Rota471')}{veiculo.garantia_meses ? ` · ${veiculo.garantia_meses} meses` : ''}
   </span>
 ) : (
-  <span className="px-2.5 py-1 bg-surface-container text-outline text-label-badge font-label-badge rounded-lg">Garantia Mundo Car</span>
+  <span className="px-2.5 py-1 bg-surface-container text-outline text-label-badge font-label-badge rounded-lg">Garantia Rota471</span>
 )}
 </div>
 <h1 className="text-headline-lg font-headline-lg text-on-surface tracking-tight">{veiculo.marca} {veiculo.modelo} {veiculo.versao}</h1>
@@ -400,7 +400,7 @@ export default function DetalhesVeiculo() {
 <div className="mt-6 pt-4 border-t border-outline-variant/20 flex items-start gap-3">
 <span className="material-symbols-outlined text-outline">location_on</span>
 <div className="text-body-sm">
-<span className="text-on-surface font-medium block">Showroom Mundo Car Veículos</span>
+<span className="text-on-surface font-medium block">Showroom Rota471 Veículos</span>
 <span className="text-outline block">Av. Justino Amonte Anacker, 1102 - Brasiliano, Santa Vitória do Palmar - RS, 96230-000</span>
 <span className="text-outline font-semibold mt-1 block">Contato: (53) 99926-2342</span>
 </div>

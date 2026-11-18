@@ -49,8 +49,8 @@ export function AuthProvider({ children }) {
       setUser(null);
       navigate('/login', { replace: true });
     };
-    window.addEventListener('mundcar:unauthorized', onUnauthorized);
-    return () => window.removeEventListener('mundcar:unauthorized', onUnauthorized);
+    window.addEventListener('rota471:unauthorized', onUnauthorized);
+    return () => window.removeEventListener('rota471:unauthorized', onUnauthorized);
   }, [navigate]);
 
   const login = useCallback(async (email, senha) => {

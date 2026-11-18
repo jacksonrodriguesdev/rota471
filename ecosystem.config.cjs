@@ -5,7 +5,7 @@
 module.exports = {
   apps: [
     {
-      name: 'mundocar-api',
+      name: 'rota471-api',
       cwd: './api',
       script: 'server.js',
       instances: 1,
